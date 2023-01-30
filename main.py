@@ -56,6 +56,19 @@ class Example(QWidget):
         if event.key() == Qt.Key_PageUp:
             self.zoom = int(self.zoom) + 1 if int(self.zoom) < 17 else self.zoom
             self.map_params["z"] = self.zoom
+        if event.key() == Qt.Key_Down:
+            if float(self.ll.split(",")[1]) > -85:
+                self.ll = ','.join([self.ll.split(",")[0], str(float(self.ll.split(",")[1]) - 0.1)])
+        if event.key() == Qt.Key_Up:
+            if float(self.ll.split(",")[1]) < 85:
+                self.ll = ','.join([self.ll.split(",")[0], str(float(self.ll.split(",")[1]) + 0.1)])
+        if event.key() == Qt.Key_Left:
+            if float(self.ll.split(",")[0]) > -180:
+                self.ll = ','.join([str(float(self.ll.split(",")[0]) - 0.1), self.ll.split(",")[1]])
+        if event.key() == Qt.Key_Right:
+            if float(self.ll.split(",")[0]) < 180:
+                self.ll = ','.join([str(float(self.ll.split(",")[0]) + 0.1), self.ll.split(",")[1]])
+        self.map_params["ll"] = self.ll
         self.getImage()
         self.reload()
 
